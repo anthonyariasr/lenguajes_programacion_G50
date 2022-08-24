@@ -6,6 +6,8 @@ import (
 	"strings"
 )
 
+//______________________________________________________________________________________________________________________________________________________________________
+
 func CountWordsandLetters(text string, textDescrip string) string {
 	lineJumps := strings.Count(text, "\n")
 	spaces := strings.Count(text, " ")
@@ -15,6 +17,8 @@ func CountWordsandLetters(text string, textDescrip string) string {
 	return (returnStr)
 
 }
+
+//______________________________________________________________________________________________________________________________________________________________________
 
 func remove(sliceArray []string, s int) []string {
 	return append(sliceArray[:s], sliceArray[s+1:]...)
@@ -39,9 +43,54 @@ func RotateSequence(rotaQua int, direction bool, array *[]string) {
 	}
 }
 
+//______________________________________________________________________________________________________________________________________________________________________
+
+type calzado struct {
+	marca     string
+	talla     int
+	precio    int
+	cantStock int
+}
+
+var arrayCalzado []calzado
+
+// validates if the shoe has the right size and then adds it into the array
+func addShoe(shoe calzado) {
+	if shoe.talla >= 34 && shoe.talla <= 44 {
+		arrayCalzado = append(arrayCalzado, shoe)
+	} else {
+		print("The shoe size must be between 34 and 44")
+	}
+}
+
+// Search for the shoe and then check if there's any in stock
+func sellShoe(Pmarca string) {
+	var index = -1
+	for i, shoe := range arrayCalzado {
+		if shoe.marca == Pmarca {
+			index = i
+		}
+	}
+
+	if index != -1 && arrayCalzado[index].cantStock > 0 {
+		arrayCalzado[index].cantStock--
+		fmt.Println("Shoe has been sold")
+	} else {
+		fmt.Println("This shoe can't be find in stock")
+	}
+}
+
 func ShoesInventory() {
 
+	addShoe(calzado{marca: "Adidas", talla: 42, precio: 50000, cantStock: 5})
+	addShoe(calzado{marca: "Nike", talla: 44, precio: 250000, cantStock: 1})
+	addShoe(calzado{marca: "Rebook", talla: 36, precio: 125000, cantStock: 2})
+	fmt.Println(arrayCalzado)
+	sellShoe("Adidas")
+	fmt.Println(arrayCalzado)
 }
+
+//______________________________________________________________________________________________________________________________________________________________________
 
 func main() {
 
@@ -79,5 +128,6 @@ understood at all.`
 	fmt.Println(*originalArray)
 
 	//Exercise 4
+	fmt.Print("\n\nExercise 4: \n")
 	ShoesInventory()
 }
